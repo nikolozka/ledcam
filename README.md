@@ -25,3 +25,10 @@ git clone https://github.com/scanlime/fadecandy
 
 cp fadecandy/examples/python/opc.py copy to same folder as the python sketch
 
+start fadecandy server
+
+git clone https://github.com/nikolozka/ledcam
+
+cd ledcam
+
+python3 usbcam.py
