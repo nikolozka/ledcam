@@ -19,3 +19,4 @@ pip3 install opencv-python
 git clone https://github.com/scanlime/fadecandy
 
 cp fadecandy/examples/python/opc.py copy to same folder as the python sketch
+
