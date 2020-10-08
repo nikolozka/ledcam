@@ -35,9 +35,6 @@ try:
 
         #do loop if capture returned sensible info
         if(ret):
-        #display camera preview
-            window_name = 'image'
-            cv2.imshow(window_name, frame)     
         #operations on the frame come here if you need high res manipulation
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -65,11 +62,10 @@ try:
                     print ('sent')
                 else:
                     print ('not connected')
-
-    # Display the resulting frame
-#    c = cv2.waitKey(25) & 0xFF
-#    if c == ord('q'):
-#        break
+        #display camera preview
+            window_name = 'image'
+            cv2.imshow(window_name, frame)
+            cv2.waitKey(1)
 
 except KeyboardInterrupt:
         print('releasing camera')
