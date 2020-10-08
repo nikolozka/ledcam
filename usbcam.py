@@ -51,17 +51,19 @@ try:
         #convert to RGB (cv2 runs on BGR frames in the backend)
             smallrgb = cv2.cvtColor(small, cv2.COLOR_BGR2RGB)
 
+            pushline = smallrgb[:,0]
+
         #write to fadecandies
-            for i in range(16):
-                pushline = smallrgb[:,i]
+            for i in range(15):
+                pushline.append(smallrgb[:,i+1])
 
                 #print(pushline.shape) #debug leftovers
                 #print(pushline)
 
-                if client.put_pixels(pushline, channel=i):
-                    print ('sent')
-                else:
-                    print ('not connected')
+            if client.put_pixels(pushline, channel=0):
+                print ('sent')
+            else:
+                print ('not connected')
         #display camera preview
             window_name = 'image'
             cv2.imshow(window_name, frame)
