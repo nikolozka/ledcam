@@ -35,7 +35,9 @@ try:
 
         #do loop if capture returned sensible info
         if(ret):
-
+        #display camera preview
+            window_name = 'image'
+            cv2.imshow(window_name, image)     
         #operations on the frame come here if you need high res manipulation
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
