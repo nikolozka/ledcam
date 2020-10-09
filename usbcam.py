@@ -52,16 +52,13 @@ try:
             smallrgb = cv2.cvtColor(small, cv2.COLOR_BGR2RGB)
 
             pushline = smallrgb[:,0]
-            print(pushline.shape)
 
         #write to fadecandies
             for i in range(15):
                 pushline = np.append(pushline,smallrgb[:,i+1], axis=0)
-                print(pushline.shape)
 
                 #print(pushline.shape) #debug leftovers
                 #print(pushline)
-            print(pushline.shape)
             if client.put_pixels(pushline, channel=0):
                 print ('sent')
             else:
