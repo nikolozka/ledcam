@@ -55,7 +55,7 @@ try:
 
         #write to fadecandies
             for i in range(15):
-                pushline.append(smallrgb[:,i+1])
+                pushline = np.append(pushline,smallrgb[:,i+1])
 
                 #print(pushline.shape) #debug leftovers
                 #print(pushline)
