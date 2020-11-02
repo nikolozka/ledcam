@@ -7,13 +7,13 @@ import opc
 import adafruit_dotstar as dotstar
 
 n_dots = 144
+dim = (16,9)
 
 dots = dotstar.DotStar(11, 10, n_dots, brightness=1.0, auto_write=False)
 
 #create capture device
 #cap = cv2.VideoCapture(0) #might need expirimentation to figure out the argument ls /dev/video* is a starting point
 cap = cv2.VideoCapture("../testfiles/test.mp4") #videofile
-ADDRESS = 'localhost:7890'
 
 print('press Ctrl+C to quit disposing of resources properly')
 
@@ -38,7 +38,6 @@ try:
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         #scale down
-            dim = (16,9)
             small = cv2.resize(frame, dim, interpolation = cv2.INTER_LINEAR)
 
         #or here if you want to manipulate on the led scale
@@ -51,7 +50,7 @@ try:
 
 
         #write to fadecandies
-            for i in range(15):
+            for i in range(dim[0]-1):
                 if(i%2==0):
                     pushline = np.append(pushline,smallrgb[:,i+1], axis=0)
                 else:
