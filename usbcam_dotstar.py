@@ -7,14 +7,12 @@ import opc
 import adafruit_dotstar as dotstar
 
 n_dots = 144
-index = 0
-parity = 0
 
 dots = dotstar.DotStar(11, 10, n_dots, brightness=1.0, auto_write=False)
 
 #create capture device
 #cap = cv2.VideoCapture(0) #might need expirimentation to figure out the argument ls /dev/video* is a starting point
-cap = cv2.VideoCapture("test.mp4") #might need expirimentation to figure out the argument ls /dev/video* is a starting point
+cap = cv2.VideoCapture("../testfiles/test.mp4") #videofile
 ADDRESS = 'localhost:7890'
 
 print('press Ctrl+C to quit disposing of resources properly')
@@ -34,23 +32,14 @@ try:
 
         ret, frame = cap.read()
 
-        #print(frame.shape) #debug leftovers
-
-        image = cv2.imread("image.png", 1);
-        ret = True
         #do loop if capture returned sensible info
         if(ret):
         #operations on the frame come here if you need high res manipulation
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-#            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
         #scale down
             dim = (16,9)
             small = cv2.resize(frame, dim, interpolation = cv2.INTER_LINEAR)
-#            small = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
-
-            #print(small.shape) #debug leftovers
-            #cv2.imwrite('color_img.jpg', small)
 
         #or here if you want to manipulate on the led scale
             smallgray = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
@@ -68,16 +57,13 @@ try:
                 else:
                     flipline = np.flip(smallrgb[:,i+1], axis=0)
                     pushline = np.append(pushline,flipline, axis=0)
-                #print(pushline.shape) #debug leftovers
-                #print(pushline)
 
             for dot in range(n_dots):
                 dots[dot] = (pushline[dot][0],pushline[dot][1],pushline[dot][2])
             dots.show()
         #display camera preview
             window_name = 'image'
-#            cv2.imshow(window_name, frame)
-#            cv2.imshow(window_name, image)
+#            cv2.imshow(window_name, frame) #uncomment for preview
             cv2.waitKey(1)
 
 except KeyboardInterrupt:
@@ -87,7 +73,7 @@ except KeyboardInterrupt:
             dots[dot] = (0,0,0)
         dots.show()
 
-#        cv2.destroyAllWindows()
+        cv2.destroyAllWindows() 
         exit()
 
 # When everything done, release the capture
