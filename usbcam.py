@@ -24,23 +24,27 @@ print('press Ctrl+C to quit disposing of resources properly')
 try:
     while(True):
         # make sure the device is open
-        if(not cap.isOpened()):
-            cap.open()
+        #if(not cap.isOpened()):
+            #cap.open()
 
         #read next frame
 
-        ret, frame = cap.read()
+        #ret, frame = cap.read()
 
         #print(frame.shape) #debug leftovers
 
+        image = cv2.imread("image.png", 1);
+        ret = True
         #do loop if capture returned sensible info
         if(ret):
         #operations on the frame come here if you need high res manipulation
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
         #scale down
             dim = (16,21)
-            small = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
+#            small = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
+            small = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
 
             #print(small.shape) #debug leftovers
             #cv2.imwrite('color_img.jpg', small)
@@ -65,13 +69,14 @@ try:
                 print ('not connected')
         #display camera preview
             window_name = 'image'
-            cv2.imshow(window_name, frame)
+#            cv2.imshow(window_name, frame)
+#            cv2.imshow(window_name, image)
             cv2.waitKey(1)
 
 except KeyboardInterrupt:
         print('releasing camera')
         cap.release()
-        cv2.destroyAllWindows()
+#        cv2.destroyAllWindows()
         exit()
 
 # When everything done, release the capture
